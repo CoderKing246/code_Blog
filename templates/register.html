@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f5f5;
+    }
+  
+    .card {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+  
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+  
+    .card-header {
+      border-bottom: none;
+      padding: 1.5rem;
+      font-size: 1.25rem;
+    }
+  
+    .card-body {
+      background: #ffffff;
+      padding: 2rem;
+    }
+  
+    .form-label {
+      font-weight: 500;
+      font-size: 1rem;
+      color: #333;
+    }
+  
+    .form-control {
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      padding: 12px 16px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+  
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+    }
+  
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      padding: 12px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+  
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+  
+    .alert-danger {
+      font-size: 1rem;
+      background-color: #f8d7da;
+      color: #721c24;
+      border-radius: 8px;
+      padding: 12px;
+    }
+  
+    .card-footer {
+      background: #f8f9fa;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+  
+    .text-primary {
+      color: #007bff !important;
+      text-decoration: none;
+    }
+  
+    .text-primary:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+
+
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-lg border-light">
+          <div class="card-header bg-primary text-white text-center">
+            <h3 class="card-title mb-0">Create Your Account</h3>
+          </div>
+          
+          {% if messages %}
+          {% for message in messages %}
+          
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+              {{ message }}
+              <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="close"></button>
+          </div>
+          
+          {% endfor %}
+          
+          {% endif %}
+          <div class="card-body">
+            {% if form.errors %}
+              <div class="alert alert-danger">
+                <strong>Error:</strong> Please fix the errors below.
+              </div>
+            {% endif %}
+            <form method="post">
+              {% csrf_token %}
+              
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
+              </div>
+              <div class="mb-3">
+                <label for="password_confirm" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Re-enter your password" required>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            </form>
+          </div>
+          <div class="card-footer text-center">
+            <p class="mb-0">Already have an account? <a href="/login" class="text-primary">Login here</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock content %}
+
